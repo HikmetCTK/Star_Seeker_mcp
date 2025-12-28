@@ -1,0 +1,13 @@
+[project]
+name = "github-stars-project"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "dotenv>=0.9.9",
+    "fastmcp>=2.14.1",
+    "google-genai>=1.56.0",
+    "requests>=2.32.5",
+    "sentence-transformers>=5.2.0",
+]
