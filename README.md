@@ -102,7 +102,7 @@ Click on the 3 dots in the top right corner, select **"MCP Servers"** -> **"Mana
 ```json
 {
   "mcpServers": {
-    "github-stars": {
+    "star-seeker-mcp": {
       "command": "uv",
       "args": [
         "--directory",
@@ -122,7 +122,7 @@ Click on the 3 dots in the top right corner, select **"MCP Servers"** -> **"Mana
 ### 2. Cursor AI
 1. **Settings** -> **Cursor Settings** -> **MCP**.
 2. **+ Add New MCP Server**.
-3. **Name**: `GitHub Stars`, **Type**: `command`.
+3. **Name**: `StarSeeker`, **Type**: `command`.
 4. **Command**: `uv --directory "C:\path\to\Star_Seeker_mcp" run mcp_server.py`
 
 ### 3. Claude Desktop
@@ -130,7 +130,7 @@ Add the following to your `claude_desktop_config.json`:
 ```json
 {
   "mcpServers": {
-    "github-stars": {
+    "star-seeker-mcp": {
       "command": "uv",
       "args": [
         "--directory",
@@ -152,25 +152,25 @@ Add the following to your `claude_desktop_config.json`:
 The server stores fetched JSON data and search embeddings in a centralized directory to avoid duplicates and ensure persistence.
 
 ### File Locations
-- **Local (Windows)**: `explorer %USERPROFILE%\.github_stars_mcp` to open the directory
-- **Local (Linux/macOS)**: `~/.github_stars_mcp`
-- **Inside Docker**: `/root/.github_stars_mcp` (backed by a Docker volume)
+- **Local (Windows)**: `explorer %USERPROFILE%\.star_seeker_mcp` to open the directory
+- **Local (Linux/macOS)**: `~/.star_seeker_mcp`
+- **Inside Docker**: `/root/.star_seeker_mcp` (backed by a Docker volume)
 
 ### Terminal Commands to Access Data
 
 #### View Local Data Files (Windows CMD)
 ```cmd
-dir %USERPROFILE%\.github_stars_mcp
+dir %USERPROFILE%\.star_seeker_mcp
 ```
 
 #### View Data Files Inside Running Docker Container
 ```bash
-docker exec -it github-stars-mcp ls -lh /root/.github_stars_mcp
+docker exec -it star-seeker-mcp ls -lh /root/.star_seeker_mcp
 ```
 
 #### Copy a Data File from Docker to Local Machine
 ```bash
-docker cp github-stars-mcp:/root/.github_stars_mcp/yourusername_stars.json .
+docker cp star-seeker-mcp:/root/.star_seeker_mcp/yourusername_stars.json .
 ```
 
 ## 🧠 How it Works

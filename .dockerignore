@@ -5,7 +5,7 @@ __pycache__
 .env
 *_stars.json
 *_stars_embeddings.pkl
-.github_stars_mcp/
+.star_seeker_mcp/
 node_modules
 dist
 build

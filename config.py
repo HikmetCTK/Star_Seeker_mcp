@@ -19,8 +19,8 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Global storage directory for user data (JSON, Embeddings, .env)
-# Default is ~/.github_stars_mcp
-DATA_DIR = pathlib.Path.home() / ".github_stars_mcp"
+# Default is ~/.star_seeker_mcp
+DATA_DIR = pathlib.Path.home() / ".star_seeker_mcp"
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 # Load environment variables (.env files)

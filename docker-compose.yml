@@ -1,7 +1,7 @@
 services:
-  github-stars-mcp:
+  star-seeker-mcp:
     build: .
-    container_name: github-stars-mcp
+    container_name: star-seeker-mcp
     stdin_open: true
     tty: true
     env_file:
@@ -10,7 +10,9 @@ services:
       - GITHUB_TOKEN=${GITHUB_TOKEN}
       - GEMINI_API_KEY=${GEMINI_API_KEY}
     volumes:
-      - .github_stars_mcp_data:/root/.github_stars_mcp
+      - star_seeker_mcp_data:/root/.star_seeker_mcp
 
 volumes:
-  .github_stars_mcp_data:
+  star_seeker_mcp_data:
+
+
