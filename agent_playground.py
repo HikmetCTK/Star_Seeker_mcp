@@ -81,7 +81,7 @@ def search_stars_tool(username: str, query: str) -> str:
             output.append(f"   {repo['url']}")
             # Add snippet of description if available
             desc = repo.get('description') or 'No description'
-            output.append(f"   {desc[:150]}...\n")
+            output.append(f" Description:  {desc}...\n")
             
         return "\n".join(output)
     except Exception as e:
