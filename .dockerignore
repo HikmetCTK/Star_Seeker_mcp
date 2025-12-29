@@ -1,0 +1,13 @@
+.git
+.venv
+__pycache__
+*.pyc
+.env
+*_stars.json
+*_stars_embeddings.pkl
+.github_stars_mcp/
+node_modules
+dist
+build
+.agent/
+.gemini/

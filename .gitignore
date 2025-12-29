@@ -1,13 +1,42 @@
-# Python-generated files
+# Python
 __pycache__/
-*.py[oc]
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
 build/
+develop-eggs/
 dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
 wheels/
-*.egg-info
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Environment & Secrets
 .env
-# Virtual environments
-.venv
-/*.pkl
-/*.json
-/*.lock
+.venv/
+.python-version
+
+# Data & Cache
+.github_stars_mcp_data/
+*.pkl
+*_stars.json
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDEs
+.vscode/
+.idea/
+
+# Note: uv.lock SHOULD be tracked in git.
+# Do NOT ignore *.lock unless you specifically want to ignore system lockfiles.

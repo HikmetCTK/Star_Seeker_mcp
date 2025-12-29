@@ -1,0 +1,16 @@
+services:
+  github-stars-mcp:
+    build: .
+    container_name: github-stars-mcp
+    stdin_open: true
+    tty: true
+    env_file:
+      - .env
+    environment:
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    volumes:
+      - .github_stars_mcp_data:/root/.github_stars_mcp
+
+volumes:
+  .github_stars_mcp_data:
