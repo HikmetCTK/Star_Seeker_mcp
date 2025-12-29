@@ -124,4 +124,3 @@ def run():
     """Entry point for the MCP server."""
     mcp.run()
 
-print(_fetch_stars_impl("Codmetxx"))
