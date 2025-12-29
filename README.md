@@ -5,8 +5,7 @@ A powerful MCP (Model Context Protocol) server that helps you discover relevant 
 ## 🚀 Features
 
 - **Semantic Search**: Find repositories based on meaning and context, not just keywords, using Google Gemini (text-embedding-004).
-- **Hybrid Search**: Fallback to BM25 and popularity-based rank fusion when AI isn't available.
-- **Modular Architecture**: Clean separation of concerns (Config, GitHub Client, Search Engine, Server).
+- **Hybrid Search**: Google gemini text embedding + BM25( Fallback to BM25 and popularity-based rank fusion when gemini embedding isn't available.)
 - **Docker Ready**: Easy containerized deployment.
 - **Fast Performance**: Persistent embedding cache and efficient batching.
 
