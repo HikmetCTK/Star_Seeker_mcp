@@ -74,7 +74,7 @@ uv run mcp_server.py
 
 ## 🛠 MCP Tools
 
-### `_fetch_stars_for_user`
+### `fetch_stars_tool`
 Fetches all starred repositories for a given GitHub username and prepares the search index.
 - **Args**: `username` (required), `token` (optional)
 
