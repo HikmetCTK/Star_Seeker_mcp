@@ -30,7 +30,7 @@ A powerful MCP (Model Context Protocol) server that helps you discover relevant 
 1. **Clone the repository**:
    ```bash
    git clone <repository-url>
-   cd github_stars_project
+   cd Star_Seeker_mcp
    ```
 
 2. **Set up environment variables**:
