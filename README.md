@@ -24,7 +24,7 @@ A powerful MCP (Model Context Protocol) server that helps you discover relevant 
 - GitHub Personal Access Token (for higher rate limits)
 - Gemini API Key (for semantic search capabilities)
 
-## ⚙️ Installation
+## ⚙️ Installation & Setup
 
 1. **Clone the repository**:
    ```bash
@@ -32,32 +32,44 @@ A powerful MCP (Model Context Protocol) server that helps you discover relevant 
    cd Star_Seeker_mcp
    ```
 
-2. **Set up environment variables**:
+2. **Set up Environment**:
    Create a `.env` file in the root directory:
    ```env
    GITHUB_TOKEN=your_github_token
    GEMINI_API_KEY=your_gemini_api_key
    ```
-  You can run without Github_token and Gemini api key
-  Github api  can provide 500 - 1000 repo without github token 
-  
-3. **Install dependencies**:
+   > **Note**: You can run without a `GITHUB_TOKEN` (GitHub API allows ~60 requests/hr or up to 1000 repos without a token), but a `GEMINI_API_KEY` is **required** for the Agent Playground and semantic search.
+
+3. **Install Dependencies**:
    ```bash
    uv sync
    ```
 
-## 🚀 Usage
+## 🎮 Quick Start: Agent Playground
+The fastest way to experience StarSeeker is through the integrated Agent Playground. It provides a visual chat interface (Gradio) to interact with your GitHub stars.
 
-### 🎨 Agent Playground (Local Testing)
-The fastest way to test and interact with the system visually using Gradio.
-1. **Run Locally**:
-   ```bash
-   uv run agent_playground.py
-   ```
-2. **Access**: Open [http://localhost:8080](http://localhost:8080) in your browser.
+### 1. Launch the Visual UI (Recommended)
+```bash
+uv run agent_playground.py
+```
+- **Access**: Open [http://localhost:8080](http://localhost:8080) in your browser.
+- **Features**: Chat with Gemini, ask it to fetch your stars, and then search through them using natural language.
 
-### 🔌 MCP Server (Standalone / Production)
-To run the server for integration with tools like Cursor or Claude.
+> **💡 Quick Tip**: Once the UI is open, you can simply type:  
+> `github name : your_username. Find me some cool React libraries.`  
+> The agent will automatically fetch your stars (if not cached) and perform a semantic search.
+
+### 2. Launch the CLI Version
+If you prefer the terminal:
+```bash
+uv run agent_playground.py --cli
+```
+
+---
+
+## 🔌 MCP Server (Integration for Cursor/Claude)
+If you want to use StarSeeker as a tool inside **Cursor**, **Claude Desktop**, or **Antigravity**, follow these steps.
+
 
 #### Option A: Running with Docker (Recommended for Stability)
 The Docker image is optimized to only install the core MCP server dependencies (skipping Gradio).
