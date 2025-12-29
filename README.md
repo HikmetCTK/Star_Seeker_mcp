@@ -93,7 +93,7 @@ Click on the 3 dots in the top right corner, select **"MCP Servers"** -> **"Mana
       "command": "uv",
       "args": [
         "--directory",
-        "C:\\path\\to\\github_stars_project",
+        "C:\\path\\to\\Star_Seeker_mcp",
         "run",
         "mcp_server.py"
       ],
@@ -110,7 +110,7 @@ Click on the 3 dots in the top right corner, select **"MCP Servers"** -> **"Mana
 1. **Settings** -> **Cursor Settings** -> **MCP**.
 2. **+ Add New MCP Server**.
 3. **Name**: `GitHub Stars`, **Type**: `command`.
-4. **Command**: `uv --directory "C:\path\to\github_stars_project" run mcp_server.py`
+4. **Command**: `uv --directory "C:\path\to\Star_Seeker_mcp" run mcp_server.py`
 
 ### 3. Claude Desktop
 Add the following to your `claude_desktop_config.json`:
@@ -121,7 +121,7 @@ Add the following to your `claude_desktop_config.json`:
       "command": "uv",
       "args": [
         "--directory",
-        "C:\\path\\to\\github_stars_project",
+        "C:\\path\\to\\Star_Seeker_mcp",
         "run",
         "mcp_server.py"
       ],
