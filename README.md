@@ -38,7 +38,9 @@ A powerful MCP (Model Context Protocol) server that helps you discover relevant 
    GITHUB_TOKEN=your_github_token
    GEMINI_API_KEY=your_gemini_api_key
    ```
-
+  You can run without Github_token and Gemini api key
+  Github api  can provide 500 - 1000 repo without github token 
+  
 3. **Install dependencies**:
    ```bash
    uv sync
