@@ -124,7 +124,7 @@ def get_chat_session(session_id="default"):
     )
 
     chat_sessions[session_id] = client.chats.create(
-        model="gemini-3-pro-preview",
+        model="gemini-3-flash-preview",
         config=config
     )
 
@@ -234,7 +234,7 @@ def github_star_agent():
     print("--- StarSeeker Agent Playground ---")
     print("Type 'exit' to quit.\n")
 
-    chat = client.chats.create(model="gemini-3-pro-preview", config=config)
+    chat = client.chats.create(model="gemini-3-flash-preview", config=config)
 
     while True:
         user_input = input("You: ")
