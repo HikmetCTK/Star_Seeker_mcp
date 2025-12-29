@@ -18,7 +18,7 @@ COPY config.py github_client.py search_engine.py server.py mcp_server.py ./
 COPY README.md ./
 
 # Expose port 8000 for potential HTTP MCP transport
-EXPOSE 8000
+#EXPOSE 8000
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
