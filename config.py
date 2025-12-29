@@ -35,6 +35,9 @@ You are a helpful assistant that helps users find relevant GitHub repositories b
 You are given a list of repositories that a user has starred on GitHub. You can suggest repositories that are relevant to the user's search query.
 """
 
+# Default Gemini model for completions and tool use
+DEFAULT_MODEL = "gemini-3-flash-preview"
+
 def get_data_dir():
     """Returns the absolute path to the data storage directory."""
     return DATA_DIR
@@ -42,3 +45,7 @@ def get_data_dir():
 def get_system_prompt():
     """Returns the default system prompt for the AI model."""
     return SYSTEM_PROMPT
+
+def get_default_model():
+    """Returns the default Gemini model name."""
+    return DEFAULT_MODEL

@@ -8,85 +8,15 @@ import re
 import time
 import sys
 # Import local project logic
-from config import get_data_dir, logger
-from github_client import raw_fetch_user_stars
-from search_engine import StarSearcher
+from config import get_data_dir, logger, get_default_model
+from server import _fetch_stars_impl as fetch_stars_tool, _search_stars_impl as search_stars_tool
 
 load_dotenv()
 gemini_clients = {}
 chat_sessions = {}
 # Initialize DATA_DIR
 DATA_DIR = get_data_dir()
-token=os.getenv("GITHUB_TOKEN")
-def fetch_stars_tool(username: str, token: str = token) -> str:
-    """
-    Fetch or update the database of starred repositories for a specific GitHub username.
-    
-    Args:
-        username: The exact GitHub username (e.g., 'gulbaki').
-        token: Optional GitHub personal access token to avoid rate limits (defaults to GITHUB_TOKEN env).
-    returns:
-        str: A message indicating the success or failure of the operation.
-    """
-    api_token = token or os.getenv("GITHUB_TOKEN")
-    try:
-        # 1. Fetch from GitHub API
-        stars = raw_fetch_user_stars(username, api_token)
-        
-        # 2. Save to local JSON storage
-        filename = str(DATA_DIR / f"{username}_stars.json")
-        with open(filename, "w", encoding="utf-8") as f:
-            json.dump(stars, f, indent=4)
-        
-        # 3. Trigger embedding generation/update
-        # This pre-calculates embeddings so subsequent searches are fast.
-        searcher = StarSearcher(username)
-        status = " (Embedded with Gemini)" if searcher.embedding_source == "google" else ""
-        
-        logger.info(f"Updated star database for {username}. Stars: {len(stars)}{status}")
-        return f"Successfully fetched {len(stars)} starred repositories for '{username}'{status}."
-    except Exception as e:
-        logger.error(f"Error in fetch_stars_tool: {str(e)}")
-        return f"Error in fetch_stars_tool: {str(e)}"
-def search_stars_tool(username: str, query: str) -> str:
-    """
-    Search through a user's starred repositories using AI-powered semantic search or keyword matching.
-    
-    Args:
-        username: The exact GitHub username provided by the user.
-        query: The search terms or project idea to find relevant repositories for.
-    """
-    filename = str(DATA_DIR / f"{username}_stars.json")
-    
-    # Check if data exists locally
-    if not os.path.exists(filename):
-        return f"Error: No data found for user '{username}'. Please run 'fetch_stars_for_user' first."
-    
-    try:
-        logger.info(f"Searching stars for {username}. Query: {query}")
-        
-        # Initialize searcher (will automatically load data and embeddings)
-        searcher = StarSearcher(username)
-        
-        # Perform Search (Method depends on Gemini availability: Hybrid vs BM25 vs Keyword)
-        top = searcher.search(query, limit=5)
-        
-        if not top:
-            return "No matches found."
-            
-        # Format results for the AI model to read
-        output = [f"--- Results for: {query} (via {searcher.embedding_source.upper()}) ---"]
-        for repo in top:
-            output.append(f"{repo['full_name']} | ★ {repo['stars']}")
-            output.append(f"   {repo['url']}")
-            # Add snippet of description if available
-            desc = repo.get('description') or 'No description'
-            output.append(f" Description:  {desc}...\n")
-            
-        return "\n".join(output)
-    except Exception as e:
-        logger.error(f"Error in search_stars_tool: {str(e)}")
-        return f"Error in search_stars_tool: {str(e)}"
+DEFAULT_MODEL = get_default_model()
 def get_gemini_client():
     api_key = os.getenv("GEMINI_API_KEY")
     if not api_key:
@@ -124,7 +54,7 @@ def get_chat_session(session_id="default"):
     )
 
     chat_sessions[session_id] = client.chats.create(
-        model="gemini-3-flash-preview",
+        model=DEFAULT_MODEL,
         config=config
     )
 
@@ -234,7 +164,7 @@ def github_star_agent():
     print("--- StarSeeker Agent Playground ---")
     print("Type 'exit' to quit.\n")
 
-    chat = client.chats.create(model="gemini-3-flash-preview", config=config)
+    chat = client.chats.create(model=DEFAULT_MODEL, config=config)
 
     while True:
         user_input = input("You: ")
