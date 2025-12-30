@@ -6,11 +6,12 @@ A powerful MCP (Model Context Protocol) server that helps you discover relevant 
 ## 📸 Screenshots
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/0e71afe9-f1d8-442c-bfed-4874bc480283" width="48%" alt="Fetch and Search">
+  <img src="https://github.com/user-attachments/assets/8ff143dd-71c9-4894-90c1-eec89465bc49" width="48%" alt="Fetch and Search">
   <img src="https://github.com/user-attachments/assets/dde9d312-c5aa-4265-b29d-1e1fbfbd69d9" width="48%" alt="Output Results">
   <br>
   <em>StarSeeker: Fetch and Search part (left) and Result (Right)</em>
 </p>
+
 
 
 
