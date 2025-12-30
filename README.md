@@ -2,6 +2,15 @@
 
 A powerful MCP (Model Context Protocol) server that helps you discover relevant repositories from your own starred list on GitHub. It uses **BM25 keyword ranking** and **Gemini Semantic Search** to find the best tools for your next project.
 
+
+# 🖼️ Screenshots
+![fetch_and_search](https://github.com/user-attachments/assets/0e71afe9-f1d8-442c-bfed-4874bc480283)
+
+![output](https://github.com/user-attachments/assets/dde9d312-c5aa-4265-b29d-1e1fbfbd69d9)
+
+
+
+
 ## 🚀 Features
 
 - **Semantic Search**: Find repositories based on meaning and context, not just keywords, using Google Gemini (text-embedding-004).
