@@ -71,7 +71,7 @@ uv run agent_playground.py --cli
 If you want to use StarSeeker as a tool inside **Cursor**, **Claude Desktop**, or **Antigravity**, follow these steps.
 
 
-#### Option A: Running with Docker (Recommended for Stability)
+#### Option A: Running with Docker 
 The Docker image is optimized to only install the core MCP server dependencies (skipping Gradio).
 
 1. **Build and Start**:
@@ -91,14 +91,14 @@ uv run mcp_server.py
 Fetches all starred repositories for a given GitHub username and prepares the search index.
 - **Args**: `username` (required), `token` (optional)
 
-### `search_stars`
+### `search_stars_tool`
 Search through the fetched repositories using semantic or keyword search.
 - **Args**: `username` (required), `query` (required)
 
 ## 🔌 Integrations
 
 ### 1. Antigravity (tested with Antigravity)
-Click on the 3 dots in the top right corner, select **"MCP Servers"** -> **"Manage Servers"** -> **"View Raw Config"**, and add:
+Click on the 3 dots in the top right corner, select **"MCP Servers"** -> **"Manage Servers"** -> **"View Raw Config"**, and paste this json inside of it . Restart Antigravity,then ou can use mcp server:
 ```json
 {
   "mcpServers": {
