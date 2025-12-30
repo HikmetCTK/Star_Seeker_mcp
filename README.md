@@ -22,7 +22,7 @@ A powerful MCP (Model Context Protocol) server that helps you discover relevant 
 - **Docker Ready**: Easy containerized deployment.
 - **Fast Performance**: Persistent embedding cache and efficient batching.
 
-## 🛠 File Structure
+## 🛠 File Structure for MCP
 
 - `mcp_server.py`: Main entry point.
 - `server.py`: Tool definitions and MCP logic.
