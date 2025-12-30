@@ -3,11 +3,14 @@
 A powerful MCP (Model Context Protocol) server that helps you discover relevant repositories from your own starred list on GitHub. It uses **BM25 keyword ranking** and **Gemini Semantic Search** to find the best tools for your next project.
 
 
-# 🖼️ Screenshots
-![fetch_and_search](https://github.com/user-attachments/assets/0e71afe9-f1d8-442c-bfed-4874bc480283)
+## 📸 Screenshots
 
-![output](https://github.com/user-attachments/assets/dde9d312-c5aa-4265-b29d-1e1fbfbd69d9)
-
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/0e71afe9-f1d8-442c-bfed-4874bc480283" width="48%" alt="Fetch and Search">
+  <img src="https://github.com/user-attachments/assets/dde9d312-c5aa-4265-b29d-1e1fbfbd69d9" width="48%" alt="Output Results">
+  <br>
+  <em>StarSeeker: Fetch and Search part (left) and Result (Right)</em>
+</p>
 
 
 
