@@ -81,16 +81,37 @@ uv run agent_playground.py --cli
 ---
 
 ## 🔌 MCP Server (Integration for Antigravity/Cursor/Claude)
-If you want to use StarSeeker as a tool inside **Cursor**, **Claude Desktop**, or **Antigravity**, follow these steps.
+If you want to use StarSeeker as a tool inside **Antigravity**, **Cursor**, or **Claude Desktop**, follow these steps.
+
+
+#### Option A: Running with Docker 
+The Docker image is optimized to only install the core MCP server dependencies (skipping Gradio).
+
+1. **Build and Start**:
+   ```bash
+   docker-compose up --build -d
+   ```
+2. **Access**: The server runs on stdio/HTTP inside the container, ready for your tools.
+
+#### Option B: Running Locally
+```bash
+uv run mcp_server.py
+```
+
+## 🛠 MCP Tools
+
+### `fetch_stars_tool`
+Fetches all starred repositories for a given GitHub username and prepares the search index.
+- **Args**: `username` (required), `token` (optional)
+
+### `search_stars_tool`
+Search through the fetched repositories using semantic or keyword search.
+- **Args**: `username` (required), `query` (required)
+
+## 🔌 Integrations
 
 ### 1. Antigravity (tested with Antigravity)
-
-Antigravity provides the easiest setup experience with a visual interface.
-
-1. Open Antigravity
-2. Click the **3 dots** in the top right corner
-3. Select **"MCP Servers"** → **"Manage Servers"** → **"View Raw Config"**
-4. Paste this configuration and restart Antigravity  :
+Click on the 3 dots in the top right corner, select **"MCP Servers"** -> **"Manage Servers"** -> **"View Raw Config"**, and paste this json inside of it . Restart Antigravity,then ou can use mcp server:
 ```json
 {
   "mcpServers": {
@@ -110,10 +131,7 @@ Antigravity provides the easiest setup experience with a visual interface.
   }
 }
 ```
-5. Replace `C:\\path\\to\\Star_Seeker_mcp` with your actual installation path
-6. Replace the API keys with your actual keys
-7. Restart Antigravity
-8. 
+
 ### 2. Cursor AI
 1. **Settings** -> **Cursor Settings** -> **MCP**.
 2. **+ Add New MCP Server**.
@@ -140,34 +158,6 @@ Add the following to your `claude_desktop_config.json`:
     }
   }
 }
-```
-
-
-
-## 🛠 MCP Tools
-
-### `fetch_stars_tool`
-Fetches all starred repositories for a given GitHub username and prepares the search index.
-- **Args**: `username` (required), `token` (optional)
-
-### `search_stars_tool`
-Search through the fetched repositories using semantic or keyword search.
-- **Args**: `username` (required), `query` (required)
-
-## 🔌 Integrations
-
-#### Option A: Running with Docker 
-The Docker image is optimized to only install the core MCP server dependencies (skipping Gradio).
-
-1. **Build and Start**:
-   ```bash
-   docker-compose up --build -d
-   ```
-2. **Access**: The server runs on stdio/HTTP inside the container, ready for your tools.
-
-#### Option B: Running Locally
-```bash
-uv run mcp_server.py
 ```
 
 ## 📂 Data Storage & Access
