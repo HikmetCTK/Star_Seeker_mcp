@@ -34,6 +34,12 @@ def _fetch_stars_impl(username: str, token: str = None) -> str:
         token: Optional GitHub personal access token to avoid rate limits (defaults to GITHUB_TOKEN env).
     """
     api_token = token or os.getenv("GITHUB_TOKEN")
+    
+    # Catch "your_api_key" placeholder or None
+    if api_token and api_token.startswith("your"):
+        api_token = None
+        logger.warning("GITHUB_TOKEN not found in environment.")
+
     try:
         # 1. Fetch from GitHub API
         stars = raw_fetch_user_stars(username, api_token)
@@ -88,7 +94,7 @@ def _search_stars_impl(username: str, query: str) -> str:
             output.append(f"   {repo['url']}")
             # Add snippet of description if available
             desc = repo.get('description') or 'No description'
-            output.append(f"   {desc[:150]}...\n")
+            output.append(f" Description: {desc}\n")
             
         return "\n".join(output)
     except Exception as e:

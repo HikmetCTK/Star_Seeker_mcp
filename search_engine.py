@@ -38,12 +38,21 @@ class StarSearcher:
 
         # 1. Initialize Google Client if API Key is present
         api_key = os.getenv("GEMINI_API_KEY")
+
+        # Catch "your_api_key" placeholder mistakes
+        if api_key and api_key.startswith("your"):
+            api_key = None
+            logger.warning("GEMINI_API_KEY is still set to a placeholder. Falling back to keyword search.")
+
         if HAS_GOOGLE and api_key:
             try:
                 self.google_client = genai.Client(api_key=api_key)
                 self.embedding_source = "google"
             except Exception as e:
                 logger.error(f"Failed to init Google Client: {e}")
+                self.embedding_source = "keyword"
+        else:
+            self.embedding_source = "keyword"
         
         self.load_data()
 

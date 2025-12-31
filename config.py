@@ -49,3 +49,4 @@ def get_system_prompt():
 def get_default_model():
     """Returns the default Gemini model name."""
     return DEFAULT_MODEL
+
