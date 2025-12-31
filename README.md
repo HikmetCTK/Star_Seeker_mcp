@@ -51,8 +51,7 @@ A powerful MCP (Model Context Protocol) server that helps you discover relevant 
    GITHUB_TOKEN=your_github_token
    GEMINI_API_KEY=your_gemini_api_key
    ```
-   > **Note**: You can run without a `GITHUB_TOKEN` (GitHub API allows ~60 requests/hr or up to 1000 repos without a token), but a `GEMINI_API_KEY` is **required** for the Agent Playground and semantic search.
-
+   > **Note**: You can run without a `GITHUB_TOKEN` (GitHub API allows ~60 requests/hr or up to 1000 repos without a token), but a `GEMINI_API_KEY` is **required** for the Agent Playground and semantic search. I used free tier of Gemini API.
 3. **Install Dependencies**:
    ```bash
    uv sync
@@ -113,8 +112,35 @@ Antigravity provides the easiest setup experience with a visual interface.
 5. Replace `C:\\path\\to\\Star_Seeker_mcp` with your actual installation path
 6. Replace the API keys with your actual keys
 7. Restart Antigravity
-8. 
-### 2. Cursor AI
+8. You can see writing @MCP Server in Antigravity chat
+
+### 2.VSCODE
+
+1. Create mcp.json file in workspace folder or find if it exists.
+2. Add this configuration to mcp.json file
+```json
+{
+  "mcpServers": {
+    "github-stars-seeker": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "c:path\\to\\Star_Seeker_mcp",
+        "run",
+        "mcp_server.py"
+      ],
+      "env": {
+        "GITHUB_TOKEN": "your_github_token",
+        "GEMINI_API_KEY": "your_gemini_api_key"
+      }
+    }
+  }
+}
+3. click start button .
+4. You can use it
+```
+
+### 3. Cursor AI
 1. **Settings** -> **Cursor Settings** -> **MCP**.
 2. **+ Add New MCP Server**.
 3. **Name**: `StarSeeker`, **Type**: `command`.

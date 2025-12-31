@@ -40,7 +40,7 @@ class StarSearcher:
         api_key = os.getenv("GEMINI_API_KEY")
 
         # Catch "your_api_key" placeholder mistakes
-        if api_key and api_key.startswith("your"):
+        if api_key and api_key.lower().startswith("your"):
             api_key = None
             logger.warning("GEMINI_API_KEY is still set to a placeholder. Falling back to keyword search.")
 

@@ -36,7 +36,7 @@ def _fetch_stars_impl(username: str, token: str = None) -> str:
     api_token = token or os.getenv("GITHUB_TOKEN")
     
     # Catch "your_api_key" placeholder or None
-    if api_token and api_token.startswith("your"):
+    if api_token and api_token.lower().startswith("your"):
         api_token = None
         logger.warning("GITHUB_TOKEN not found in environment.")
 
