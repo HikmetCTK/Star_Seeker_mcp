@@ -136,10 +136,11 @@ Antigravity provides the easiest setup experience with a visual interface.
     }
   }
 }
+
+```
 3. click start button .
 4. You can use it
-```
-
+   
 ### 3. Cursor AI
 1. **Settings** -> **Cursor Settings** -> **MCP**.
 2. **+ Add New MCP Server**.
