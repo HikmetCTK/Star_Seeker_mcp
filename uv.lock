@@ -1912,6 +1912,7 @@ dependencies = [
     { name = "dotenv" },
     { name = "fastmcp" },
     { name = "google-genai" },
+    { name = "numpy" },
     { name = "rank-bm25" },
     { name = "requests" },
 ]
@@ -1927,6 +1928,7 @@ requires-dist = [
     { name = "dotenv", specifier = ">=0.9.9" },
     { name = "fastmcp", specifier = ">=2.14.1" },
     { name = "google-genai", specifier = ">=2.8.0" },
+    { name = "numpy", specifier = ">=2.4.0" },
     { name = "rank-bm25", specifier = ">=0.2.2" },
     { name = "requests", specifier = ">=2.32.5" },
 ]

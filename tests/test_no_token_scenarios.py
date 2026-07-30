@@ -38,7 +38,7 @@ def test_raw_fetch_user_stars_without_token(mock_get):
     # Authorization header should NOT be present
     assert "Authorization" not in headers
     # Accept header should still be there
-    assert headers.get("Accept") == "application/vnd.github.v3+json"
+    assert headers.get("Accept") == "application/vnd.github+json"
 
 @patch("server.raw_fetch_user_stars")
 @patch("server.StarSearcher")

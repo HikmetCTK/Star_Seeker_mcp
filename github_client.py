@@ -19,9 +19,9 @@ def raw_fetch_user_stars(username, token=None):
     Returns:
         list: A list of dicts containing repo metadata (name, language, description, etc.).
     """
-    headers = {"Accept": "application/vnd.github.v3+json"}
+    headers = {"Accept": "application/vnd.github+json"}
     if token and str(token).strip().lower() not in ("none", ""):
-        headers["Authorization"] = f"token {token}"
+        headers["Authorization"] = f"Bearer {token}"
     
     all_repos = []
     page = 1

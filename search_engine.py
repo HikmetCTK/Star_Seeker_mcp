@@ -8,9 +8,10 @@ import json
 import pickle
 import numpy as np
 from rank_bm25 import BM25Okapi
-from config import get_data_dir, logger
+from config import get_data_dir, get_default_embedding_model, logger
 
 DATA_DIR = get_data_dir()
+EMBEDDING_MODEL = get_default_embedding_model()
 
 # Optional dependency: Google GenAI for embeddings
 try:
@@ -89,8 +90,12 @@ class StarSearcher:
             try:
                 with open(self.cache_path, "rb") as f:
                     data = pickle.load(f)
-                    # Verify cache validity (source matches and count matches)
-                    if data.get("source") == "google" and len(data.get("vectors")) == len(self.descriptions):
+                    # Verify cache validity (source, model, and count)
+                    if (
+                        data.get("source") == "google"
+                        and data.get("model") == EMBEDDING_MODEL
+                        and len(data.get("vectors")) == len(self.descriptions)
+                    ):
                         self.embeddings = data["vectors"]
                         return
             except Exception as e:
@@ -104,6 +109,7 @@ class StarSearcher:
             with open(self.cache_path, "wb") as f:
                 pickle.dump({
                     "source": "google",
+                    "model": EMBEDDING_MODEL,
                     "vectors": self.embeddings
                 }, f)
 
@@ -119,7 +125,7 @@ class StarSearcher:
             batch = self.descriptions[i:i + batch_size]
             try:
                 result = self.google_client.models.embed_content(
-                    model="text-embedding-004",
+                    model=EMBEDDING_MODEL,
                     contents=batch
                 )
                 for embedding in result.embeddings:
@@ -152,7 +158,7 @@ class StarSearcher:
         # 1. Get Vector Scores (Semantic Similarity)
         try:
             result = self.google_client.models.embed_content(
-                model="text-embedding-004",
+                model=EMBEDDING_MODEL,
                 contents=query
             )
             query_vec = np.array(result.embeddings[0].values)

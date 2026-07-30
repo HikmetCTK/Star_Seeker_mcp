@@ -17,7 +17,7 @@ A powerful MCP (Model Context Protocol) server that helps you discover relevant 
 
 ## 🚀 Features
 
-- **Semantic Search**: Find repositories based on meaning and context, not just keywords, using Google Gemini (text-embedding-004).
+- **Semantic Search**: Find repositories based on meaning and context, not just keywords, using Google Gemini (`gemini-embedding-001`).
 - **Hybrid Search**: Google gemini text embedding + BM25( Fallback to BM25 and popularity-based rank fusion when gemini embedding isn't available.)
 - **Docker Ready**: Easy containerized deployment.
 - **Fast Performance**: Persistent embedding cache and efficient batching.
@@ -227,7 +227,7 @@ docker cp star-seeker-mcp:/root/.star_seeker_mcp/yourusername_stars.json .
 
 1. **Data Collection**: Fetches repo names, descriptions, and topics via GitHub API.
 2. **Indexing**: 
-   - Generates vector embeddings for all descriptions using `text-embedding-004`.
+   - Generates vector embeddings for all descriptions using `gemini-embedding-001`.
    - Builds a BM25 index for keyword search fallback.
 3. **Retrieval**: 
    - Uses Cosine Similarity for semantic matches.

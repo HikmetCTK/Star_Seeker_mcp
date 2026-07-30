@@ -35,8 +35,12 @@ You are a helpful assistant that helps users find relevant GitHub repositories b
 You are given a list of repositories that a user has starred on GitHub. You can suggest repositories that are relevant to the user's search query.
 """
 
-# Default Gemini model for completions and tool use
-DEFAULT_MODEL = "gemini-3-flash-preview"
+# Default Gemini model for completions and tool use (free tier)
+DEFAULT_MODEL = "gemini-3.6-flash"
+
+# Text-only embedding model (free tier). Prefer over gemini-embedding-2:
+# Embedding 2 aggregates a list of strings into one vector; 001 returns one per string.
+DEFAULT_EMBEDDING_MODEL = "gemini-embedding-001"
 
 def get_data_dir():
     """Returns the absolute path to the data storage directory."""
@@ -49,4 +53,8 @@ def get_system_prompt():
 def get_default_model():
     """Returns the default Gemini model name."""
     return DEFAULT_MODEL
+
+def get_default_embedding_model():
+    """Returns the default Gemini embedding model name."""
+    return DEFAULT_EMBEDDING_MODEL
 
