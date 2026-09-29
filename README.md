@@ -1,5 +1,7 @@
 # 🚀 StarSeeker MCP: GitHub Stars Intelligence Agent
 
+[![MCPVault: claimed](https://mcpvault.io/badge/star-seeker-mcp.svg)](https://mcpvault.io/servers/star-seeker-mcp/health?utm_source=external_badge&utm_medium=referral&utm_campaign=mcp_health_report)
+
 A powerful MCP (Model Context Protocol) server that helps you discover relevant repositories from your own starred list on GitHub. It uses **BM25 keyword ranking** and **Gemini Semantic Search** to find the best tools for your next project.
 
 
