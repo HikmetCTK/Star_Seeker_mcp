@@ -57,8 +57,37 @@ A powerful MCP (Model Context Protocol) server that helps you discover relevant 
    uv sync
    ```
 
-## 🎮 Quick Start: Agent Playground
-The fastest way to experience StarSeeker is through the integrated Agent Playground. It provides a visual chat interface (Gradio) to interact with your GitHub stars.
+## 🚀 Quick Start: One-Command Launch
+
+The fastest way to run the server anywhere. No clone, no virtualenv setup:
+
+```bash
+uvx --from git+https://github.com/HikmetCTK/Star_Seeker_mcp star-seeker-mcp
+```
+
+`uvx` (part of [uv](https://docs.astral.sh/uv/)) builds the package in a throwaway
+environment, runs the `star-seeker-mcp` console script, and leaves nothing behind.
+Set `GEMINI_API_KEY` and `GITHUB_TOKEN` in the environment to enable semantic search
+and higher GitHub rate limits; without them the server still starts and falls back to
+BM25 keyword search.
+
+<details>
+<summary>Alternative launch commands</summary>
+
+```bash
+# From an existing clone
+uv sync
+uv run mcp_server.py
+
+# Or via the installed console script
+uv run star-seeker-mcp
+```
+</details>
+
+---
+
+## 🎮 Agent Playground
+A Gradio chat UI for interacting with your GitHub stars interactively.
 
 ### 1. Launch the Visual UI (Recommended)
 ```bash

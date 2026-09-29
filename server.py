@@ -73,7 +73,7 @@ def _search_stars_impl(username: str, query: str) -> str:
     
     # Check if data exists locally
     if not os.path.exists(filename):
-        return f"Error: No data found for user '{username}'. Please run 'fetch_stars_for_user' first."
+        return f"Error: No data found for user '{username}'. Please run 'fetch_stars_tool' first."
     
     try:
         logger.info(f"Searching stars for {username}. Query: {query}")
@@ -103,7 +103,9 @@ def _search_stars_impl(username: str, query: str) -> str:
 
 
 # FastMCP decorated functions (wrappers around implementation)
-@mcp.tool(name="_fetch_stars_for_user")
+# Registered tool names default to the function names so that the names advertised
+# in README.md and by the MCP handshake stay in sync.
+@mcp.tool
 def fetch_stars_tool(username: str, token: str = None) -> str:
     """
     Fetch or update the database of starred repositories for a specific GitHub username.
@@ -115,7 +117,7 @@ def fetch_stars_tool(username: str, token: str = None) -> str:
     return _fetch_stars_impl(username, token)
 
 
-@mcp.tool(name="search_stars")
+@mcp.tool
 def search_stars_tool(username: str, query: str) -> str:
     """
     Search through a user's starred repositories using AI-powered semantic search or keyword matching.

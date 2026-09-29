@@ -5,6 +5,7 @@ Implements Hybrid Search (BM25 + Google Gemini Embeddings) with Reciprocal Rank 
 
 import os
 import json
+import hashlib
 import pickle
 import numpy as np
 from rank_bm25 import BM25Okapi
@@ -83,41 +84,77 @@ class StarSearcher:
         if self.embedding_source == "google" and self.descriptions:
             self._load_or_build_embeddings()
 
+    def _corpus_fingerprint(self):
+        """Stable digest of the indexed text.
+
+        The cache is keyed on the embedding count alone, which means swapping
+        repositories for the same number of entries would silently serve vectors
+        built for the previous corpus. Hashing the text makes the cache
+        self-invalidating whenever the indexed content changes.
+        """
+        digest = hashlib.sha256()
+        for text in self.descriptions:
+            digest.update(text.encode("utf-8"))
+            digest.update(b"\x00")
+        return digest.hexdigest()
+
     def _load_or_build_embeddings(self):
         """Attempts to load embeddings from cache, otherwise builds them."""
+        if not self.descriptions:
+            # Nothing to embed. Returning None keeps the caller on the BM25 path
+            # instead of caching an empty array that looks like a valid build.
+            logger.info("No descriptions to embed for %s; using keyword search.", self.username)
+            self.embeddings = None
+            return
+
+        fingerprint = self._corpus_fingerprint()
+
         # Try loading from local pickle cache to save API quota
         if os.path.exists(self.cache_path):
             try:
                 with open(self.cache_path, "rb") as f:
                     data = pickle.load(f)
-                    # Verify cache validity (source, model, and count)
-                    if (
-                        data.get("source") == "google"
-                        and data.get("model") == EMBEDDING_MODEL
-                        and len(data.get("vectors")) == len(self.descriptions)
-                    ):
-                        self.embeddings = data["vectors"]
-                        return
+                cached_vectors = data.get("vectors")
+                # `cached_vectors or []` cannot be used here: `vectors` is a numpy
+                # array, and a truth test on it raises instead of returning False.
+                cached_count = len(cached_vectors) if cached_vectors is not None else 0
+                # Verify cache validity (source, model, corpus and count)
+                if (
+                    data.get("source") == "google"
+                    and data.get("model") == EMBEDDING_MODEL
+                    and data.get("fingerprint") == fingerprint
+                    and cached_count == len(self.descriptions)
+                ):
+                    self.embeddings = cached_vectors
+                    return
             except Exception as e:
-                logger.debug(f"Cache load failed: {e}")
+                logger.warning(f"Cache load failed, rebuilding: {e}")
 
         # Cache miss or invalid: Build new embeddings
         self.embeddings = self._build_google_embeddings()
-        
-        if self.embeddings is not None:
-            # Save to cache
+
+        # Only persist a build that actually covers the whole corpus. A partial
+        # or empty result must never be written back as if it were valid.
+        if self.embeddings is not None and len(self.embeddings) == len(self.descriptions):
             with open(self.cache_path, "wb") as f:
                 pickle.dump({
                     "source": "google",
                     "model": EMBEDDING_MODEL,
+                    "fingerprint": fingerprint,
                     "vectors": self.embeddings
                 }, f)
+        else:
+            logger.warning("Embedding build incomplete; cache not written.")
+            self.embeddings = None
 
     def _build_google_embeddings(self):
         """Calls Google Gemini API to generate embeddings for all repo descriptions."""
         vectors = []
         batch_size = 100
         total = len(self.descriptions)
+        
+        if total == 0:
+            return None
         
         logger.info(f"Generating semantic embeddings for {total} repos for user {self.username}...")
         
@@ -134,7 +171,15 @@ class StarSearcher:
             except Exception as e:
                 logger.error(f"Google Embedding Error at batch {i}: {e}")
                 return None
-                
+
+        # A short result means the API returned fewer vectors than requested;
+        # treating it as complete would misalign vectors against descriptions.
+        if len(vectors) != total:
+            logger.error(
+                f"Embedding count mismatch: got {len(vectors)} of {total}. Discarding."
+            )
+            return None
+
         return np.array(vectors)
 
     def search(self, query, limit=5):
